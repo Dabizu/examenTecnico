@@ -1,0 +1,2 @@
+# examenTecnico
+Mi examen
