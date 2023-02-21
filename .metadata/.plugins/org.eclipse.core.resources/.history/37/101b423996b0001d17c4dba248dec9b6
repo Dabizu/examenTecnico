@@ -1,0 +1,55 @@
+package com.example.demo.controllers;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.services.UsuarioService;
+import com.example.demo.models.*;
+
+@RestController
+@RequestMapping("/usuario")
+public class UsuarioController {
+	@Autowired
+	UsuarioService usuarioService;
+	//agregamos un usuario
+	@PostMapping()
+	public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario) {
+		return this.usuarioService.guardarUsuario(usuario);
+	}
+	
+	//buscamos un usuario desde id
+	@GetMapping("/buscar/{id}")
+	public Optional<UsuarioModel> dameUsuario(@PathVariable("id") int id){
+		return this.usuarioService.obtenerId(id);
+	}
+	
+	//actualizacion de usuario esta aactualizacion es un pequeño revoltijo yo solo la haria con poner el json completo del objeto modelo usuario a guardar ya que al ser el mismo id se actualiza
+	@PostMapping("/actualizar/{id}")
+	public UsuarioModel actualizarUsuario(@PathVariable("id") int id, @RequestBody UsuarioModel usuario){
+		return this.usuarioService.actualizar(id, usuario);
+		/*
+		Optional<UsuarioModel> registro = usuarioService.obtenerId(id);
+		if(registro.get().getId()==usuario.getId()) {
+			return this.usuarioService.actualizar(usuario);
+		}
+		return usuario;*/
+	}
+	
+	
+	
+	//obtener toda la lista de todos los usuarios
+	@GetMapping()
+	public ArrayList<UsuarioModel> listarUsuario(){
+		return this.usuarioService.listarUsuarios();
+	}
+	
+}

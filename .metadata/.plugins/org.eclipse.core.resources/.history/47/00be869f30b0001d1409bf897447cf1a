@@ -1,0 +1,21 @@
+package com.example.demo.services;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.UsuarioRepository.UsuarioRepository;
+import com.example.demo.models.UsuarioModel;
+
+@Service
+public class UsuarioService {
+	@Autowired
+	UsuarioRepository usuarioRepository;
+	public ArrayList<UsuarioModel> listarUsuarios(long id){
+		return (ArrayList<UsuarioModel>) usuarioRepository.findAllById(id).orElse(null);
+	}
+	public UsuarioModel guardarUsuario(UsuarioModel usuario) {
+		return usuarioRepository.save(usuario);
+	}
+}

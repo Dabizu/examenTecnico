@@ -1,0 +1,62 @@
+package com.example.mongoproyecto.controllers;
+
+import java.util.ArrayList;
+
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.mongoproyecto.models.CuentaModel;
+import com.example.mongoproyecto.services.CuentaService;
+
+
+@RestController
+@RequestMapping("/cuenta")
+public class CuentaController {
+	@Autowired
+	CuentaService cuentaService;
+	
+	@GetMapping("/buscar/{idusuario}")
+	public ArrayList<CuentaModel> buscarUsuario(@PathVariable("idusuario") int idusuario){
+		return (ArrayList<CuentaModel>) this.cuentaService.buscarCuentasUsuario(idusuario);
+	}
+	
+	@PostMapping()
+	public Optional<CuentaModel> actualizarUsuario(@RequestBody CuentaModel cuentaModel){
+		return this.cuentaService.guardarCuenta(cuentaModel);
+	}
+	
+	@PutMapping()
+	public CuentaModel guardarCuenta(@RequestBody CuentaModel cuentaModel){
+		return this.cuentaService.guardarCuenta(cuentaModel);
+	}
+	
+	@DeleteMapping()
+	public String eliminarCuenta(@PathVariable("/{idusuario}") int idusuario) {
+		boolean bandera=this.cuentaService.eliminar(idusuario);
+		JSONObject json;
+		if (bandera == true) {
+			json=new JSONObject("{\"type\":\"sucess\"}");
+			return json.toString();
+		} else {
+			json=new JSONObject("{\"type\":\"error\"}");
+			return json.toString();
+		}
+	}
+	
+	@GetMapping()
+	public ArrayList<CuentaModel> listarCuentas(){
+		return (ArrayList<CuentaModel>) this.cuentaService.listarCuentas();
+	}
+	
+	
+	
+	@
+}

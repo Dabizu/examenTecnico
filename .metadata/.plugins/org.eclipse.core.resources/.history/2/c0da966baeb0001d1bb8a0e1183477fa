@@ -1,0 +1,24 @@
+package com.example.demo.UsuarioRepository;
+
+import com.example.demo.models.UsuarioModel;
+
+import java.util.Optional;
+
+import org.springframework.data.repository.CrudRepository;
+//import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long> {
+
+	Optional<UsuarioModel> findByNombre(String data);
+
+	Optional<UsuarioModel> findByApellido_materno(String data);
+
+	Optional<UsuarioModel> findByApellido_paterno(String data);
+
+	Optional<UsuarioModel> findByCorreo(String data);
+
+	//Optional<UsuarioModel> findByUsuarioModel(UsuarioModel usuario);
+	
+}

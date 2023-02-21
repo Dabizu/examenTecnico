@@ -1,0 +1,107 @@
+package com.example.demo.services;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.UsuarioRepository.UsuarioRepository;
+import com.example.demo.models.UsuarioModel;
+
+@Service
+public class UsuarioService {
+	@Autowired
+	UsuarioRepository usuarioRepository;
+
+	public UsuarioRepository getUsuarioRepo() {
+		return this.usuarioRepository;
+	}
+
+	public ArrayList<UsuarioModel> listarUsuarios() {
+		return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
+	}
+
+	public UsuarioModel guardarUsuario(UsuarioModel usuario) {
+		return usuarioRepository.save(usuario);
+	}
+
+	public Optional<UsuarioModel> obtenerId(long id) {
+		return usuarioRepository.findById(id);
+	}
+
+	public UsuarioModel actualizar(int id, UsuarioModel usuario) {
+		usuario.setId(id);
+		return usuarioRepository.save(usuario);
+	}
+
+	public boolean eliminacion(long id) {
+		try {
+			usuarioRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Optional<UsuarioModel> menuDatos(String typeVariable, String data) {
+		// TODO Auto-generated method stub
+		switch (typeVariable) {
+			case "id": {
+				long id = Integer.parseInt(data);
+				return usuarioRepository.findById(id);
+			}
+			case "nombre": {
+				return usuarioRepository.findByNombre(data);
+			}
+			case "apellidoMaterno": {
+				return usuarioRepository.findByApellidomaterno(data);
+			}
+			case "apellidoPaterno": {
+				return usuarioRepository.findByApellidopaterno(data);
+			}
+		}
+		return null;
+	}
+	
+	/*
+	public Optional<UsuarioModel> menuDatos(String typeVariable, String data) {
+		switch (typeVariable) {
+		case "id": {
+			long id = Integer.parseInt(data);
+			return usuarioRepository.findById(id);
+		}
+
+		
+		case "nombre": {
+			return this.usuarioRepository.findByNombre(data);
+		}
+		case "apellido_materno": {
+			return this.usuarioRepository.findByApellido_materno(data);
+		}
+		case "apellido_paterno": {
+			return this.usuarioRepository.findByApellido_paterno(data);
+		}
+		case "correo": {
+			return this.usuarioRepository.findByCorreo(data);
+		}
+		case "telefono": {
+			return this.usuarioRepository.findByTelefono(data);
+		}
+		case "edad": {
+			int edad = Integer.parseInt(data);
+			return this.usuarioRepository.findByEdad(edad);
+		}
+		case "sexo": {
+			return this.usuarioRepository.findBySexo(data);
+		}
+		}
+		return null;
+	}*/
+	/*
+	 * public Optional<UsuarioModel> dameUsuarioTipoObjeto(UsuarioModel usuario){
+	 * return usuarioRepository.findByUsuarioModel(usuario); }
+	 */
+
+	
+}

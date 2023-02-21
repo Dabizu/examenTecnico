@@ -1,0 +1,5 @@
+package com.example.mongoproyecto.models;
+
+public class CuentaModel {
+
+}

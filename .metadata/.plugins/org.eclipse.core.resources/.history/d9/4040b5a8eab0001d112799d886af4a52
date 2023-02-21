@@ -1,0 +1,15 @@
+package com.example.mongoproyecto.models;
+
+@Document("cuenta")
+public class CuentaModel {
+	@Id
+	private int id;
+	
+	private String nombreDeLaCuenta;
+	private String banco;
+	private String tipo;
+	private float monto;
+	private int idUsuario;
+	
+	
+}

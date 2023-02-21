@@ -1,0 +1,27 @@
+package com.example.mongoproyecto.models;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document("cuenta")
+public class CuentaModel {
+	@Id
+	private int id;
+	
+	private String nombreDeLaCuenta;
+	private String banco;
+	private String tipo;
+	private float monto;
+	private int idUsuario;
+	
+	public CuentaModel(int id, String nombreDeLaCuenta, String banco,String tipo, float monto, int idUsuario) {
+		super();
+		this.id=id;
+		this.nombreDeLaCuenta=nombreDeLaCuenta;
+		this.banco=banco;
+		this.tipo=tipo;
+		this.monto=monto;
+		this.idUsuario=idUsuario;
+	}
+	
+}

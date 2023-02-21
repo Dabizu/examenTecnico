@@ -1,0 +1,9 @@
+package com.example.mongoproyecto.repository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.example.mongoproyecto.models.CuentaModel;
+
+public interface CuentaRepository extends MongoRepository<CuentaModel,String> {
+	
+}
