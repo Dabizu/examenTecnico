@@ -26,14 +26,22 @@ public class UsuarioController {
 
 	// agregamos un usuario
 	@PutMapping()
-	public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario) {
-		return this.usuarioService.guardarUsuario(usuario);
+	public String guardarUsuario(@RequestBody UsuarioModel usuario) {
+		boolean bandera = this.usuarioService.guardarUsuario(usuario);
+		JSONObject json;
+		if (bandera == true) {
+			json=new JSONObject("{\"type\":\"sucess\"}");
+			return json.toString();
+		} else {
+			json=new JSONObject("{\"type\":\"error\"}");
+			return json.toString();
+		}
 	}
 
 	// buscamos un usuario desde id
 	@GetMapping("/{id}")
 	public Optional<UsuarioModel> dameUsuario(@PathVariable("id") int id) {
-		return this.usuarioService.obtenerId(id);
+		return this.usuarioService.dameId(id);
 	}
 
 	// obtener toda la lista de todos los usuarios

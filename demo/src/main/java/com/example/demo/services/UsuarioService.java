@@ -22,11 +22,16 @@ public class UsuarioService {
 		return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
 	}
 
-	public UsuarioModel guardarUsuario(UsuarioModel usuario) {
-		return usuarioRepository.save(usuario);
+	public boolean guardarUsuario(UsuarioModel usuario) {
+		try {
+			usuarioRepository.save(usuario);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
-	public Optional<UsuarioModel> obtenerId(long id) {
+	public Optional<UsuarioModel> dameId(long id) {
 		return usuarioRepository.findById(id);
 	}
 
